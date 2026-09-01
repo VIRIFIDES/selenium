@@ -17,9 +17,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/blang/semver"
 	"github.com/VIRIFIDES/selenium/firefox"
 	"github.com/VIRIFIDES/selenium/log"
+	"github.com/blang/semver"
 )
 
 // Errors returned by Selenium server.
@@ -69,6 +69,9 @@ func newRequest(method string, url string, data []byte) (*http.Request, error) {
 		return nil, err
 	}
 	request.Header.Add("Accept", jsonContentType)
+	if len(data) > 0 {
+		request.Header.Add("Content-Type", jsonContentType)
+	}
 
 	return request, nil
 }
